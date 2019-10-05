@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy:east": "cdk deploy TuttInfrastructureStackEast",
+    "deploy:west": "cdk deploy TuttInfrastructureStackWest"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.11.0",
@@ -20,6 +22,7 @@
     "typescript": "~3.6.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-dynamodb": "^1.11.0",
     "@aws-cdk/core": "^1.11.0",
     "source-map-support": "^0.5.9"
   }

@@ -24,7 +24,7 @@ const westStack = new TuttInfrastructureStack(
   {
     env: {
       account: '185124521435',
-      region: 'us-west-1'
+      region: 'us-west-2'
     }
   }
 )
