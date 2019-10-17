@@ -9,8 +9,9 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy:east": "npm run build && cdk deploy TuttInfrastructureStackEast",
-    "deploy:west": "npm run build && cdk deploy TuttInfrastructureStackWest"
+    "deploy:east": "export TUTT_CERTIFICATE=arn:aws:acm:us-east-1:185124521435:certificate/d1b79883-ca9c-4837-91fd-cf00e9ae93b3 && npm run build && cdk deploy TuttInfrastructureStackEast",
+    "deploy:west": "export TUTT_CERTIFICATE=arn:aws:acm:us-west-2:185124521435:certificate/cd2c7984-b74a-4462-adda-15b1ce6404f6 && npm run build && cdk deploy TuttInfrastructureStackWest",
+    "deploy:shared": "npm run build && cdk deploy TuttSharedStack"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.11.0",
@@ -23,11 +24,16 @@
     "typescript": "~3.6.2"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.11.0",
-    "@aws-cdk/aws-dynamodb": "^1.11.0",
-    "@aws-cdk/aws-iam": "^1.11.0",
-    "@aws-cdk/aws-lambda": "^1.11.0",
-    "@aws-cdk/core": "^1.11.0",
+    "@aws-cdk/aws-apigateway": "1.11.0",
+    "@aws-cdk/aws-certificatemanager": "1.11.0",
+    "@aws-cdk/aws-cloudfront": "1.11.0",
+    "@aws-cdk/aws-dynamodb": "1.11.0",
+    "@aws-cdk/aws-iam": "1.11.0",
+    "@aws-cdk/aws-lambda": "1.11.0",
+    "@aws-cdk/aws-route53": "1.11.0",
+    "@aws-cdk/aws-route53-targets": "1.11.0",
+    "@aws-cdk/aws-s3": "1.11.0",
+    "@aws-cdk/core": "1.11.0",
     "source-map-support": "^0.5.9"
   }
 }

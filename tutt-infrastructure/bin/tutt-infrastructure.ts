@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register'
 import { TuttInfrastructureStack } from '../lib/tutt-infrastructure-stack'
+import { TuttSharedStack } from '../lib/tutt-shared-stack'
 import cdk = require('@aws-cdk/core')
 
 const app = new cdk.App()
@@ -30,3 +31,13 @@ const westStack = new TuttInfrastructureStack(
 )
 
 cdk.Tag.add(westStack, 'project', 'timeuntilthething')
+
+const sharedStack = new TuttSharedStack(app, 'TuttSharedStack', {
+  env: {
+    account: '185124521435',
+    region: 'us-east-1'
+  }
+})
+
+cdk.Tag.add(sharedStack, 'project', 'timeuntilthething')
+
