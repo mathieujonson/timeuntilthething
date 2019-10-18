@@ -12,14 +12,6 @@ export class TuttSharedStack extends cdk.Stack {
       domainName: 'timeuntilthething.com'
     })
 
-    // const apiRecord = new route53.ARecord(this, 'api-record', {
-    //   zone: zone,
-    //   recordName: 'api.timeuntilthething.com',
-    //   target: route53.RecordTarget.fromValues(
-    //     '4nk3msa5v0.execute-api.us-east-1.amazonaws.com'
-    //   )
-    // })
-
     const siteBucket = new s3.Bucket(this, 'timeuntilthething.com', {
       bucketName: 'timeuntilthething.com',
       websiteIndexDocument: 'index.html',
@@ -34,16 +26,24 @@ export class TuttSharedStack extends cdk.Stack {
         {
           hostName: 'timeuntilthething.com',
           httpRedirectCode: '302',
-          protocol: s3.RedirectProtocol.HTTPS
+          protocol: s3.RedirectProtocol.HTTP
         }
       ]
     })
 
-    new route53.ARecord(this, 'AliasRecord', {
+    new route53.ARecord(this, 'non-www-tutt', {
       zone,
       recordName: 'timeuntilthething.com',
       target: route53.RecordTarget.fromAlias(
         new targets.BucketWebsiteTarget(siteBucket)
+      )
+    })
+
+    new route53.ARecord(this, 'www-tutt', {
+      zone,
+      recordName: 'www.timeuntilthething.com',
+      target: route53.RecordTarget.fromAlias(
+        new targets.BucketWebsiteTarget(wwwBucket)
       )
     })
   }
