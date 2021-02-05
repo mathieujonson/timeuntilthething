@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import { App, Tags } from '@aws-cdk/core'
 import 'source-map-support/register'
 import { TuttInfrastructureStack } from '../lib/tutt-infrastructure-stack'
 import { TuttSharedStack } from '../lib/tutt-shared-stack'
-import cdk = require('@aws-cdk/core')
 
-const app = new cdk.App()
+const app = new App()
 
 const eastStack = new TuttInfrastructureStack(
   app,
@@ -17,7 +17,7 @@ const eastStack = new TuttInfrastructureStack(
   }
 )
 
-cdk.Tags.of(eastStack).add('project', 'timeuntilthething')
+Tags.of(eastStack).add('project', 'timeuntilthething')
 
 const westStack = new TuttInfrastructureStack(
   app,
@@ -30,7 +30,7 @@ const westStack = new TuttInfrastructureStack(
   }
 )
 
-cdk.Tags.of(westStack).add('project', 'timeuntilthething')
+Tags.of(westStack).add('project', 'timeuntilthething')
 
 const sharedStack = new TuttSharedStack(app, 'TuttSharedStack', {
   env: {
@@ -39,4 +39,4 @@ const sharedStack = new TuttSharedStack(app, 'TuttSharedStack', {
   },
 })
 
-cdk.Tags.of(sharedStack).add('project', 'timeuntilthething')
+Tags.of(sharedStack).add('project', 'timeuntilthething')
