@@ -14,26 +14,26 @@
     "deploy:shared": "npm run build && cdk deploy TuttSharedStack"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.11.0",
+    "@aws-cdk/assert": "1.88.0",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.11",
-    "aws-cdk": "^1.11.0",
+    "aws-cdk": "1.88.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "typescript": "~3.6.2"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "1.11.0",
-    "@aws-cdk/aws-certificatemanager": "1.11.0",
-    "@aws-cdk/aws-cloudfront": "^1.11.0",
-    "@aws-cdk/aws-dynamodb": "1.11.0",
-    "@aws-cdk/aws-iam": "1.11.0",
-    "@aws-cdk/aws-lambda": "1.11.0",
-    "@aws-cdk/aws-route53": "1.11.0",
-    "@aws-cdk/aws-route53-targets": "1.11.0",
-    "@aws-cdk/aws-s3": "1.11.0",
-    "@aws-cdk/core": "1.11.0",
+    "@aws-cdk/aws-apigateway": "1.88.0",
+    "@aws-cdk/aws-certificatemanager": "1.88.0",
+    "@aws-cdk/aws-cloudfront": "1.88.0",
+    "@aws-cdk/aws-dynamodb": "1.88.0",
+    "@aws-cdk/aws-iam": "1.88.0",
+    "@aws-cdk/aws-lambda": "1.88.0",
+    "@aws-cdk/aws-route53": "1.88.0",
+    "@aws-cdk/aws-route53-targets": "1.88.0",
+    "@aws-cdk/aws-s3": "1.88.0",
+    "@aws-cdk/core": "1.88.0",
     "source-map-support": "^0.5.9"
   }
 }
