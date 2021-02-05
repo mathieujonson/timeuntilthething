@@ -12,12 +12,12 @@ const eastStack = new TuttInfrastructureStack(
   {
     env: {
       account: '185124521435',
-      region: 'us-east-1'
-    }
+      region: 'us-east-1',
+    },
   }
 )
 
-cdk.Tag.add(eastStack, 'project', 'timeuntilthething')
+cdk.Tags.of(eastStack).add('project', 'timeuntilthething')
 
 const westStack = new TuttInfrastructureStack(
   app,
@@ -25,19 +25,18 @@ const westStack = new TuttInfrastructureStack(
   {
     env: {
       account: '185124521435',
-      region: 'us-west-2'
-    }
+      region: 'us-west-2',
+    },
   }
 )
 
-cdk.Tag.add(westStack, 'project', 'timeuntilthething')
+cdk.Tags.of(westStack).add('project', 'timeuntilthething')
 
 const sharedStack = new TuttSharedStack(app, 'TuttSharedStack', {
   env: {
     account: '185124521435',
-    region: 'us-east-1'
-  }
+    region: 'us-east-1',
+  },
 })
 
-cdk.Tag.add(sharedStack, 'project', 'timeuntilthething')
-
+cdk.Tags.of(sharedStack).add('project', 'timeuntilthething')
