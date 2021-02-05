@@ -1,11 +1,7 @@
 import targets = require('@aws-cdk/aws-route53-targets')
 import { CloudFrontWebDistribution } from '@aws-cdk/aws-cloudfront'
-import {
-  ARecord,
-  CnameRecord,
-  HostedZone,
-  RecordTarget,
-} from '@aws-cdk/aws-route53'
+import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53'
+import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns'
 import { Bucket } from '@aws-cdk/aws-s3'
 import { Construct, Stack, StackProps } from '@aws-cdk/core'
 
@@ -21,14 +17,6 @@ export class TuttSharedStack extends Stack {
       bucketName: 'timeuntilthething.com',
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'error.html',
-      publicReadAccess: true,
-    })
-
-    const wwwBucket = new Bucket(this, 'www.timeuntilthething.com', {
-      bucketName: 'www.timeuntilthething.com',
-      websiteRedirect: {
-        hostName: 'timeuntilthething.com',
-      },
       publicReadAccess: true,
     })
 
@@ -72,10 +60,10 @@ export class TuttSharedStack extends Stack {
       ),
     })
 
-    new CnameRecord(this, 'www-tutt', {
-      recordName: 'www.timeuntilthething.com',
-      domainName: 'timeuntilthething.com',
-      zone: zone,
+    new HttpsRedirect(this, 'www-tutt-redirect', {
+      recordNames: ['www.timeuntilthething.com'],
+      targetDomain: 'timeuntilthething.com',
+      zone,
     })
   }
 }
