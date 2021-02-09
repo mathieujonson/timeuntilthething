@@ -1,5 +1,8 @@
 import targets = require('@aws-cdk/aws-route53-targets')
-import { CloudFrontWebDistribution } from '@aws-cdk/aws-cloudfront'
+import {
+  CloudFrontWebDistribution,
+  OriginAccessIdentity,
+} from '@aws-cdk/aws-cloudfront'
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53'
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns'
 import { Bucket } from '@aws-cdk/aws-s3'
@@ -13,11 +16,18 @@ export class TuttSharedStack extends Stack {
       domainName: 'timeuntilthething.com',
     })
 
+    const originAccessIdentity = new OriginAccessIdentity(
+      this,
+      'tutt-origin-access-identity'
+    )
+
     const siteBucket = new Bucket(this, 'timeuntilthething.com', {
       bucketName: 'timeuntilthething.com',
       websiteIndexDocument: 'index.html',
-      websiteErrorDocument: 'error.html',
+      websiteErrorDocument: 'app.html',
     })
+
+    siteBucket.grantRead(originAccessIdentity)
 
     const siteDistribution = new CloudFrontWebDistribution(
       this,
@@ -28,6 +38,7 @@ export class TuttSharedStack extends Stack {
             behaviors: [{ isDefaultBehavior: true }],
             s3OriginSource: {
               s3BucketSource: siteBucket,
+              originAccessIdentity,
             },
           },
         ],
@@ -40,12 +51,12 @@ export class TuttSharedStack extends Stack {
           {
             errorCode: 403,
             responseCode: 200,
-            responsePagePath: '/index.html',
+            responsePagePath: '/app.html',
           },
           {
             errorCode: 404,
             responseCode: 200,
-            responsePagePath: '/index.html',
+            responsePagePath: '/app.html',
           },
         ],
       }
