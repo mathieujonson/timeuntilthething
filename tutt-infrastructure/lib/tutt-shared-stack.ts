@@ -6,6 +6,7 @@ import {
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53'
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns'
 import { Bucket } from '@aws-cdk/aws-s3'
+import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment'
 import { Construct, Stack, StackProps } from '@aws-cdk/core'
 
 export class TuttSharedStack extends Stack {
@@ -25,6 +26,11 @@ export class TuttSharedStack extends Stack {
       bucketName: 'timeuntilthething.com',
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'app.html',
+    })
+
+    new BucketDeployment(this, 'DeployWebsite', {
+      sources: [Source.asset('./site-files')],
+      destinationBucket: siteBucket,
     })
 
     siteBucket.grantRead(originAccessIdentity)
