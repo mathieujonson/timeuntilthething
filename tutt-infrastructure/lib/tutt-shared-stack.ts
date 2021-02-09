@@ -17,7 +17,6 @@ export class TuttSharedStack extends Stack {
       bucketName: 'timeuntilthething.com',
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'error.html',
-      publicReadAccess: true,
     })
 
     const siteDistribution = new CloudFrontWebDistribution(
