@@ -13,11 +13,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      inject: 'body',
       chunks: ['index'],
       template: './template.ejs',
     }),
     new HtmlWebpackPlugin({
       filename: 'app.html',
+      inject: 'body',
       chunks: ['app'],
       template: './template.ejs',
     }),
