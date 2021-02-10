@@ -28,14 +28,9 @@ export class TuttSharedStack extends Stack {
       websiteErrorDocument: 'app.html',
     })
 
-    new BucketDeployment(this, 'DeployWebsite', {
-      sources: [Source.asset('./site-files')],
-      destinationBucket: siteBucket,
-    })
-
     siteBucket.grantRead(originAccessIdentity)
 
-    const siteDistribution = new CloudFrontWebDistribution(
+    const distribution = new CloudFrontWebDistribution(
       this,
       'tutt-cloudfront-distribution',
       {
@@ -68,11 +63,18 @@ export class TuttSharedStack extends Stack {
       }
     )
 
+    new BucketDeployment(this, 'DeployWebsite', {
+      sources: [Source.asset('./site-files')],
+      destinationBucket: siteBucket,
+      distribution,
+      distributionPaths: ['/index.html', '/app.html'],
+    })
+
     new ARecord(this, 'non-www-tutt', {
       zone,
       recordName: 'timeuntilthething.com',
       target: RecordTarget.fromAlias(
-        new targets.CloudFrontTarget(siteDistribution)
+        new targets.CloudFrontTarget(distribution)
       ),
     })
 
