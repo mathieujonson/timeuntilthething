@@ -3,6 +3,6 @@
       "**/*.js": { "when": "$(basename).ts" },
       "**/*.d.ts": { "when": "$(basename).ts" }
     },
-    "editor.wordWrapColumn": 200
+    "editor.wordWrapColumn": 200,
   }
   
